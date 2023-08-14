@@ -1,29 +1,30 @@
 const { Schema, model } = require('mongoose');
 
+
 const userSchema = new Schema(
   {
     username: {
       type: String,
-      required: true,
       unique: true,
+      required: true,
       trim: true,
     },
     email: {
       type: String,
-      required: true,
       unique: true,
-      match: /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
+      required: true,
+      match: [/.+@.+\..+/, 'Please enter a valid email address'],
     },
     thoughts: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Thought',
+        ref: 'Thought', // Reference to the Thought model
       },
     ],
     friends: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'User', // Reference to the User model (self-reference)
       },
     ],
   },
@@ -36,11 +37,11 @@ const userSchema = new Schema(
   }
 );
 
+// Create a virtual field called 'friendCount' that retrieves the length of the 'friends' array
 userSchema.virtual('friendCount').get(function () {
   return this.friends.length;
 });
 
-const User = model('User', userSchema);
+const Users = model('User', userSchema);
 
-module.exports = User;
-
+module.exports = { Users };
