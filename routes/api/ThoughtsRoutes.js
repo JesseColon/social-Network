@@ -6,6 +6,11 @@ router
   .get(thoughtController.getAllThoughts)
   .post(thoughtController.createThought);
 
+  router
+  .route('/:thoughtId')
+  .get(thoughtController.getOneThought)
+  .put(thoughtController.updateThought);
+
 router
   .route('/:thoughtId/reactions')
   .post(thoughtController.addReaction);

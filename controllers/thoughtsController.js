@@ -46,6 +46,33 @@ const thoughtController = {
     } catch (err) {
       res.status(500).json(err);
     }
+  },
+
+  getOneThought: async (req, res) => {
+    try {
+      const thought = await Thought.findById(req.params.thoughtId);
+      if (!thought) {
+        res.status(404).json({ message: 'No thought found with this ID!' });
+        return;
+      }
+      res.json(thought);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
+
+  // Update a thought by its _id
+  updateThought: async (req, res) => {
+    try {
+      const thought = await Thought.findByIdAndUpdate(req.params.thoughtId, req.body, { new: true, runValidators: true });
+      if (!thought) {
+        res.status(404).json({ message: 'No thought found with this ID!' });
+        return;
+      }
+      res.json(thought);
+    } catch (err) {
+      res.status(500).json(err);
+    }
   }
 };
 
