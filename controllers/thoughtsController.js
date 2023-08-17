@@ -9,6 +9,14 @@ const thoughtController = {
       res.status(500).json(err);
     }
   },
+  createThought: async (req, res) => {
+    try {
+      const newThought = await Thought.create(req.body);
+      res.json(newThought);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
 
   addReaction: async (req, res) => {
     try {

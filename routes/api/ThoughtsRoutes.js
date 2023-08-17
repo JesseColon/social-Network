@@ -3,7 +3,8 @@ const thoughtController = require('../../controllers/thoughtsController');
 
 router
   .route('/')
-  .get(thoughtController.getAllThoughts);
+  .get(thoughtController.getAllThoughts)
+  .post(thoughtController.createThought);
 
 router
   .route('/:thoughtId/reactions')
